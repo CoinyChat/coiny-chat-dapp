@@ -23,6 +23,7 @@ export interface IButton {
 
 export interface ContactPreview {
     name: string;
+    contactProfileLocation: string[];
     message: string | undefined;
     image: string;
     contactDetails: Contact;
@@ -55,9 +56,11 @@ export const getEmptyContact = (
     message: string | undefined,
     isHidden: boolean = false,
     updatedAt: number,
+    contactProfileLocation: string[],
 ) => {
     const newContact: ContactPreview = {
         name: getAccountDisplayName(ensName, 25),
+        contactProfileLocation,
         message,
         image: humanIcon,
         contactDetails: {

@@ -1,5 +1,6 @@
 import './EnsDetails.css';
 import { IEnsDetails } from '../../interfaces/props';
+import { getStacksAddressIfuserSignbyStacks } from '../StacksWallet/StacksWalletWorkaround';
 
 export function EnsDetails(props: IEnsDetails) {
     return (
@@ -14,9 +15,9 @@ export function EnsDetails(props: IEnsDetails) {
                         ? ' pointer-cursor text-decoration-underline'
                         : '',
                 )}
-                onClick={() => (props.action ? props.action() : () => {})}
+                onClick={() => (props.action ? props.action() : () => { })}
             >
-                {props.propertyValue}
+                {getStacksAddressIfuserSignbyStacks() ?? props.propertyValue}
             </span>
         </div>
     );

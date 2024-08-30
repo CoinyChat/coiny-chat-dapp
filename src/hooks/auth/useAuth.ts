@@ -26,7 +26,22 @@ import { UiViewContext } from '../../context/UiViewContext';
 import { useMainnetProvider } from '../mainnetprovider/useMainnetProvider';
 import { AccountConnector, getIdForAddress } from './AccountConnector';
 import { SignMessageFn } from '../server-side/ServerSideConnector';
-import { getToken } from '../../components/HiCoinyProfile/utils';
+import { getToken } from './token';
+import { HighCoinyAccountConnector } from './HighCoinyAccountConnector';
+import {
+    getHighCoinyWalletAddress,
+    highCoinySignMessage,
+    isUserRequestSignByHighCoinyWallet,
+} from '../../components/FastHighcoinyWallet/CreateHighcoinyWallet';
+
+import {
+    connectStacksWalletandsign,
+    getHighcoinyStacksWalletAddress,
+    getStacksAddressIfuserSignbyStacks,
+    highCoinyStacksSignMessage,
+    isHighcoinyStacksWalletCreated,
+    isUserRequestSignByHighcoinyStacksWallet,
+} from '../../components/StacksWallet/StacksWalletWorkaround';
 
 export const useAuth = () => {
     const mainnetProvider = useMainnetProvider();
@@ -47,7 +62,8 @@ export const useAuth = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [hasError, setHasError] = useState<boolean>(false);
-
+    const [cleanSignInRequested, setCleanSignInRequested] =
+        useState<boolean>(false);
     //The account name that should be displayed to the user. Takes alias profiles and Crosschain names into account
     const [displayName, setDisplayName] = useState<string | undefined>(
         undefined,
@@ -87,28 +103,130 @@ export const useAuth = () => {
     };
     //The normal sign in function that is used when the user signs in with their own account, using a web3 provider like wallet connect or metamask
     const cleanSignIn = async () => {
-        setIsLoading(true);
+        setCleanSignInRequested(true);
+    };
+    const [startHighCoinyStackLogin, setStartHighCoinyStackLogin] =
+        useState<boolean>(false);
+    const highCoinyStacksignIn = async () => {
+        setIsLoading(false);
         setHasError(false);
+        // alert('highCoinyStacksignIn');
         //Fetch the Account either from onchain or via CCIP
-        const account = await AccountConnector(
-            walletClient!,
-            mainnetProvider,
-            dm3Configuration.addressEnsSubdomain,
-        ).connect(address!);
-
-        if (!account) {
-            throw Error('error fetching dm3Account');
+        setStartHighCoinyStackLogin(false);
+        if (
+            !isHighcoinyStacksWalletCreated() &&
+            isUserRequestSignByHighcoinyStacksWallet()
+        ) {
+            await connectStacksWalletandsign();
         }
 
-        await _login(
-            account.ensName,
-            address!,
-            account.userProfile,
-            (message: string) => walletClient!.signMessage({ message }),
-        );
-        getToken(account.ensName);
+        console.log('highCoinyStacksignIn 1');
+
+        let intervalId: ReturnType<typeof setInterval> | null = null;
+        const startInterval = () => {
+            intervalId = setInterval(async () => {
+                console.log('setInterval');
+
+                if (
+                    isHighcoinyStacksWalletCreated() &&
+                    isUserRequestSignByHighcoinyStacksWallet()
+                ) {
+                    if (intervalId) {
+                        clearInterval(intervalId);
+                        intervalId = null;
+                    }
+                    console.log('start stacks sign in');
+
+                    console.log('async start stacks sign in');
+                    const highcoinyStacksWalletAddress =
+                        getHighcoinyStacksWalletAddress();
+
+                    //Check if the account has been used already
+                    const ensName = getIdForAddress(
+                        highcoinyStacksWalletAddress + '',
+                        dm3Configuration.addressEnsSubdomain,
+                    );
+                    const userProfile = await getUserProfile(
+                        mainnetProvider,
+                        ensName,
+                    );
+
+                    await _login(
+                        ensName,
+                        highcoinyStacksWalletAddress + '',
+                        userProfile,
+                        (msg: string) => highCoinyStacksSignMessage(msg),
+                    );
+                    getToken(ensName);
+                }
+            }, 600);
+        };
+        startInterval();
     };
 
+    const highCoinySignIn = async () => {
+        setIsLoading(false);
+        setHasError(false);
+        //Fetch the Account either from onchain or via CCIP
+        const highCoinyWalletAddress = getHighCoinyWalletAddress();
+
+        //Check if the account has been used already
+        const ensName = getIdForAddress(
+            highCoinyWalletAddress + '',
+            dm3Configuration.addressEnsSubdomain,
+        );
+        const userProfile = await getUserProfile(mainnetProvider, ensName);
+
+        await _login(
+            ensName,
+            highCoinyWalletAddress + '',
+            userProfile,
+            (msg: string) => highCoinySignMessage(msg),
+        );
+        getToken(ensName);
+    };
+    // useEffect is needed to give some time to the wallet connect variables to be initialized.
+    // without utilizing it the variable `walletClient` would be undefined.
+    useEffect(() => {
+        (async () => {
+            if (
+                cleanSignInRequested &&
+                walletClient &&
+                !isUserRequestSignByHighCoinyWallet() &&
+                !isUserRequestSignByHighcoinyStacksWallet()
+            ) {
+                setIsLoading(true);
+                setHasError(false);
+                //Fetch the Account either from onchain or via CCIP
+                const account = await AccountConnector(
+                    walletClient!,
+                    mainnetProvider,
+                    dm3Configuration.addressEnsSubdomain,
+                ).connect(address!);
+
+                if (!account) {
+                    throw Error('error fetching dm3Account');
+                }
+
+                await _login(
+                    account.ensName,
+                    address!,
+                    account.userProfile,
+                    (message: string) => walletClient!.signMessage({ message }),
+                );
+                getToken(account.ensName);
+            }
+            if (cleanSignInRequested && isUserRequestSignByHighCoinyWallet()) {
+                highCoinySignIn();
+            }
+            if (
+                cleanSignInRequested &&
+                isUserRequestSignByHighcoinyStacksWallet()
+            ) {
+                highCoinyStacksignIn();
+            }
+        })();
+    }, [cleanSignInRequested, walletClient]);
     //Siwe signin is used when a siwe message has been provided by an app using dm3 as a widget.
     //The user is signed in with a random account based on the provided secret
     const siweSignIn = async () => {
@@ -153,8 +271,10 @@ export const useAuth = () => {
                 nonce,
                 address,
             );
+            let signature = '';
 
-            const signature = await signMessage(storageKeyCreationMessage);
+            signature = await signMessage(storageKeyCreationMessage);
+
             const storageKey = await createStorageKey(signature);
             return await _createProfileKeys(storageKey, nonce);
         }
@@ -172,7 +292,9 @@ export const useAuth = () => {
                     stringify(profile),
                     address,
                 );
-                const signature = await signMessage(profileCreationMessage);
+                let signature = '';
+
+                signature = await signMessage(profileCreationMessage);
 
                 return {
                     profile,
@@ -204,6 +326,7 @@ export const useAuth = () => {
         setIsLoading(false);
         setProfileKeys(keys);
     };
+    ///////// highcoiny create stacks login
 
     const resetStates = () => {
         resetViewStates();

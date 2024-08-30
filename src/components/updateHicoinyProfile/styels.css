@@ -1,0 +1,53 @@
+body {
+    background-color: rgb(33, 37, 41);
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+.bdy {
+    max-height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.profile-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #2a2f35;
+    border-radius: 10px;
+}
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.profile-info {
+    margin-top: 20px;
+}
+.profile-info h2 {
+    margin-bottom: 10px;
+}
+.profile-section {
+    margin: 50px auto;
+    background-color: #222;
+    border-radius: 10px;
+    padding: 20px;
+}
+.wallet {
+    margin-bottom: 10px;
+}
+.wallet .address {
+    font-weight: bold;
+}
+.wallet .message {
+    color: #a0a0a0;
+}
+.verified-badge {
+    color: #28a745;
+}
+.unverified-badge {
+    color: #dc3545;
+}
+.create:hover {
+    background-color: rgb(84, 67, 147) !important;
+}
