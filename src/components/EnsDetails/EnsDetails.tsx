@@ -17,7 +17,7 @@ export function EnsDetails(props: IEnsDetails) {
                 )}
                 onClick={() => (props.action ? props.action() : () => { })}
             >
-                {getStacksAddressIfuserSignbyStacks() ?? props.propertyValue}
+                {props.propertyValue}
             </span>
         </div>
     );

@@ -1,6 +1,6 @@
 .chat-action-items {
     padding: 0.3rem;
-    background: var(--input-field-background-color) !important;
+    background: #5d5d5d !important;
     color: var(--input-field-text-color) !important;
     border: 1px solid var(--input-field-border-color) !important;
 }

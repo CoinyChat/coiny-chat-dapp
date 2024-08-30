@@ -1,6 +1,5 @@
 import './Loader.css';
 import { useContext } from 'react';
-import loader from '../../assets/images/loader.svg';
 import { ModalContext } from '../../context/ModalContext';
 
 export const closeLoader = () => {
@@ -18,7 +17,12 @@ export function Loader() {
 
     return (
         <div className="loading d-flex justify-content-center align-items-center">
-            <img className="rotating loader-img" src={loader} alt="loader" />
+            <div className="loader-animation">
+                <div className="block"></div>
+                <div className="block"></div>
+                <div className="block"></div>
+                <div className="block"></div>
+            </div>
             <div className="loader-content">{loaderContent}</div>
         </div>
     );

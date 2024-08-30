@@ -18,13 +18,12 @@ export const LoginButton = ({
             <button
                 id="sign-in-btn"
                 disabled={disabled}
-                className="signin-btn w-100 font-weight-400 border-radius-4 
-        normal-btn text-primary-color normal-btn-border"
+                className="signin-btn"
                 onClick={onClick}
             >
                 {text}
                 <span
-                    className={'right-float loading-btn'.concat(
+                    className={'loading-btn'.concat(
                         ' ',
                         getIcon(buttonState)
                             ? 'spinner-visible'

@@ -90,6 +90,10 @@ const UpdateHicoinyProifle = () => {
         );
     };
 
+    useEffect(() => {
+        if (localStorage.getItem('walletname') === 'stacks')
+            navigate('..')
+    }, [])
     const _reconnectWallet = async () => {
         try {
             // write the equvilant code for this line await window.ethereum?.enable() using the provider;
@@ -232,6 +236,7 @@ const UpdateHicoinyProifle = () => {
     }, [displayName]);
 
     const submit = async (data: any) => {
+        startLoader()
         data.verifiedWallets = allAccounts.filter(
             (account) => account.signatureVerified === true,
         );

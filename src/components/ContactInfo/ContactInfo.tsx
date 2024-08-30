@@ -140,12 +140,12 @@ export function ContactInfo() {
                                 />
                             </div>
                         </div>
-                        <TokenBalance address={address} />
+                        {/* <TokenBalance address={address} /> */}
                     </div>
 
                     <div className="ens-btn-container pt-4">
                         <Button
-                            buttonText="Open Hi-Coiny profile"
+                            buttonText="Open Coiny Chat profile"
                             actionMethod={() =>
                                 window.open(
                                     `/profile/${selectedContact?.name}`, '_blank', 'noopener,noreferrer'
@@ -154,12 +154,12 @@ export function ContactInfo() {
                         />
                     </div>
 
-                    <div className="configure-btn-container">
+                    {/* <div className="configure-btn-container">
                         <Button
                             buttonText="Open ENS profile"
                             actionMethod={() => openEnsProfile(selectedContact?.name || "")}
                         />
-                    </div>
+                    </div> */}
 
                     {/* Hide button is not visible when showContacts is false.
                         User has no option to choose contact means single contact is

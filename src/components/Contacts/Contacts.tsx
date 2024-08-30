@@ -1,7 +1,7 @@
 import './Contacts.css';
 import { useContext, useEffect, useState } from 'react';
 import loader from '../../assets/images/loader.svg';
-import threeDotsIcon from '../../assets/images/three-dots.svg';
+import threeDotsIcon from '../../assets/images/three-sots.png';
 import { ConversationContext } from '../../context/ConversationContext';
 import { MessageContext } from '../../context/MessageContext';
 import {
@@ -116,7 +116,7 @@ export function Contacts() {
         const previewMessage = contact?.message;
         return previewMessage
             ? previewMessage !== 'READ_OPENED' &&
-              previewMessage !== 'READ_RECEIVED'
+                previewMessage !== 'READ_RECEIVED'
                 ? previewMessage
                 : ''
             : '';
@@ -183,7 +183,7 @@ export function Contacts() {
                                         ' ',
                                         selectedContact
                                             ? selectedContact.contactDetails
-                                                  .account.ensName !== id
+                                                .account.ensName !== id
                                                 ? 'highlight-right-border'
                                                 : 'contact-details-container-active'
                                             : '',
@@ -235,17 +235,19 @@ export function Contacts() {
                                                     title={
                                                         data.contactDetails
                                                             ? data
-                                                                  .contactDetails
-                                                                  .account
-                                                                  .ensName
+                                                                .contactDetails
+                                                                .account
+                                                                .ensName
                                                             : ''
                                                     }
                                                 >
                                                     <p className="display-name">
-                                                        {getAccountDisplayName(
-                                                            data.name,
-                                                            25,
-                                                        )}
+                                                        {data.name == '0xba7e51d8fd84fce9861b99f58a2a96f2f9bdf47f.addr.dm3.eth' ||
+                                                            data.name == 'support.coinychat.eth' ?
+                                                            'CoinyChat.support' : getAccountDisplayName(
+                                                                data.name,
+                                                                25,
+                                                            )}
                                                     </p>
                                                 </div>
 
@@ -265,7 +267,7 @@ export function Contacts() {
                                                 {/* //TODO add loading state for message */}
                                                 {isContactSelected(id) ? (
                                                     isContactLoading(id) &&
-                                                    !messages[id].length ? (
+                                                        !messages[id].length ? (
                                                         <div className="pe-2">
                                                             <img
                                                                 className="rotating"
@@ -290,13 +292,13 @@ export function Contacts() {
                                                                         }
                                                                         isMenuAlignedAtBottom={
                                                                             isMenuAlignedAtBottom ===
-                                                                            null
+                                                                                null
                                                                                 ? showMenuInBottom(
-                                                                                      selectedContact!
-                                                                                          .contactDetails
-                                                                                          .account
-                                                                                          .ensName,
-                                                                                  )
+                                                                                    selectedContact!
+                                                                                        .contactDetails
+                                                                                        .account
+                                                                                        .ensName,
+                                                                                )
                                                                                 : isMenuAlignedAtBottom
                                                                         }
                                                                     />

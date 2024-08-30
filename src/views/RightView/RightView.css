@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     border-radius: 0px !important;
+    background-color: #fff8f0; /* Changed to the new background color */
+    color: #5d5d5d; /* Changed to the new text color */
 }
 
 .right-view-outer-container {
@@ -10,4 +12,5 @@
 
 .default-screen {
     height: 88vh;
+    color: #5d5d5d; /* Changed to the new text color */
 }

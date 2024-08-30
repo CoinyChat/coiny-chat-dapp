@@ -67,7 +67,7 @@ export const xverseConnectWorkround = async (purpose: AddressPurpose) => {
         );
     }
 };
-export const getStackAddress = () => {
+export const getStackxverseAddress = () => {
     return window.localStorage.getItem('stack-address');
 };
 export const unRequestSignByHighcoinyXverseWallet = () => {

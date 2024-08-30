@@ -93,7 +93,7 @@
 }
 
 .highlight-right-border {
-    border-right: 2px solid var(--selected-contact-border-color);
+    border-right: 2px solid #ec8129;
 }
 
 .highlight-right-border-none {
@@ -141,7 +141,7 @@ input:focus {
 }
 
 .profile-configuration-box {
-    background: var(--info-box-background-color);
+    background: #5d5d5d;
     color: var(--info-box-text-color);
     font-size: 14px;
 }

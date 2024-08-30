@@ -1,7 +1,7 @@
 import './RightView.css';
 import { useContext } from 'react';
 import { Profile } from '../../components/Profile/Profile';
-import logo from "../../assets/images/hicoinylogo.svg";
+import logo from "../../assets/images/CoinyChat.png";
 import { RightHeader } from '../../components/RightHeader/RightHeader';
 import { Chat } from '../../components/Chat/Chat';
 import { RightViewSelected } from '../../utils/enum-type-utils';
@@ -46,7 +46,7 @@ export default function RightView() {
                             <div className="d-flex justify-content-center align-items-center default-screen">
                                 <img
                                     className="img-fluid"
-                                    style={{ width: "15%", opacity: "0.5" }}
+                                    style={{ width: "15%", opacity: "0.2" }}
 
                                     src={logo}
                                     alt="logo"

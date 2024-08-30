@@ -58,6 +58,7 @@ export abstract class ServerSideConnector extends JwtInterceptor {
     }
 
     private async _signUp(signedUserProfile: SignedUserProfile) {
+        
         await claimAddress(
             this.address,
             this.resolverBackendUrl as string,

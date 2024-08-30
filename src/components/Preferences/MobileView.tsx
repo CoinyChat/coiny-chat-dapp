@@ -31,7 +31,7 @@ export function MobileView() {
                 className="modal-container position-fixed w-100 h-100"
             >
                 <div
-                    className="preferences-modal-content border-radius-6 
+                    className="preferences-modal-content 
             background-chat text-primary-color"
                 >
                     <div className="m-0 w-100 h-100">
@@ -45,7 +45,7 @@ export function MobileView() {
                                                     ' ',
                                                     optionChoosen &&
                                                         optionChoosen.name ===
-                                                            item.name
+                                                        item.name
                                                         ? 'normal-btn-hover'
                                                         : '',
                                                 )}

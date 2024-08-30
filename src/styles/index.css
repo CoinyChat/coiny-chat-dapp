@@ -2,19 +2,20 @@
 @import url(https://fonts.googleapis.com/css?family=Inter);
 
 .background-container {
-    background: var(--background-container);
+    background: #5d5d5d;
 }
+
 
 .normal-btn {
     background-color: var(--normal-btn);
 }
 
 .normal-btn-hover {
-    background-color: var(--normal-btn-hover);
+    background-color: #8d8d8d;
 }
 
 .text-primary-color {
-    color: var(--text-primary-color);
+    color: #ec8129;
 }
 
 .normal-btn-inactive {
@@ -22,7 +23,7 @@
 }
 
 .text-secondary-color {
-    color: var(--text-secondary-color);
+    color: #ec8129;
 }
 
 .background-active-contact {
@@ -30,7 +31,7 @@
 }
 
 .background-config-box {
-    background: var(--background-config-box);
+    background: #fff8f0;
 }
 
 .background-config-box-border {
@@ -46,7 +47,7 @@
 }
 
 .background-chat {
-    background: var(--background-chat);
+    background: #fff8f0;
 }
 
 .disabled-btn-text {

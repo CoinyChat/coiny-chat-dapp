@@ -37,6 +37,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import HiCoinyProfile from "../../components/HiCoinyProfile/HiCoinyProfile";
 import { SavedProfiles } from "../../components/SavedProfiles/SavedProfiles";
 import UpdateHicoinyProifle from '../../components/updateHicoinyProfile/UpdateHiCoinyProfile';
+import StacksProfile from '../../components/StacksProfile/StacksProfile';
 
 export function Home(props: Dm3Props) {
     /**
@@ -140,6 +141,10 @@ export function Home(props: Dm3Props) {
                     path: "profiles",
                     element: <SavedProfiles />,
                 },
+                {
+                    path: "stacks-profile",
+                    element: <StacksProfile />
+                }
             ]
 
 
