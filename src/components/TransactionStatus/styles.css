@@ -1,0 +1,12 @@
+.status-box {
+    cursor: default; /* Prevents the pointer cursor */
+    border: 1px solid #007bff; /* Bootstrap primary color */
+    background-color: #f8f9fa; /* Light background */
+    border-radius: 0.25rem; /* Rounded corners */
+    padding: 10px 15px; /* Padding for the box */
+    text-align: center; /* Center the text */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+.status-box:hover {
+    background-color: #e2e6ea; /* Change background on hover */
+}

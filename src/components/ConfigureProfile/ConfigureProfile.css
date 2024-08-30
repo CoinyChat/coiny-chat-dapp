@@ -47,13 +47,12 @@
     border: 1px solid var(--input-field-border-color);
     padding: 0.3rem 1rem 0.3rem 1rem;
     color: var(--input-field-text-color);
-    background: var(--input-field-background-color);
+    background: #5d5d5d;
     width: 60%;
 }
 
 .configure-btn {
     padding: 8px 16px 8px 16px;
-    box-shadow: 0px 0px 44px 0px var(--button-shadow);
     width: fit-content;
 }
 
@@ -66,11 +65,12 @@
 }
 
 .name-service-selector {
-    background: var(--preferences-highlighted-color);
+    background: #5d5d5d;
     font-size: 14px;
     padding: 0.3rem;
     font-weight: 500;
     outline: none;
+    color: #fff8f0;
 }
 
 select:focus-visible {

@@ -1,6 +1,6 @@
 .menu-container {
     padding-top: 1rem;
-    background: var(--menu-background-color);
+    background: #5d5d5d;
     position: absolute;
     width: 100%;
 }

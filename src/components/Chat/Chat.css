@@ -1,5 +1,5 @@
 .highlight-chat-border {
-    border-top: 2px solid var(--selected-contact-border-color);
+    border-top: 2px solid #ec8129;
 }
 
 .highlight-chat-border-none {

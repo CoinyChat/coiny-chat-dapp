@@ -14,19 +14,21 @@
 }
 
 .modal-btn-disabled {
-    background: var(--normal-btn-inactive);
-    color: var(--disabled-btn-text);
+    background: #5d5d5d;
+    color: #fff8f0;
     border: none;
 }
 
 .modal-btn-active {
-    background-color: var(--normal-btn);
-    border: var(--normal-btn-border);
-    color: var(--text-primary-color);
+    background-color: #ec8129;
+    border: #ec8129;
+    color: #fff8f0;
 }
 
 .modal-btn-active:hover {
-    background-color: var(--normal-btn-hover);
+    background-color: #fff8f0;
+    color: #ec8129;
+    border: #ec8129;
 }
 
 .show-error {

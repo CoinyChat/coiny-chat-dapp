@@ -1,31 +1,67 @@
-.home-image-container {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: auto;
+/* Some animation */
+.signin-container-type {
+    container-type: size;
+    container-name: signinContainer;
+    background: radial-gradient(#fff8f0 2px, transparent 2px), radial-gradient(#fff8f0 2px, #5d5d5d 2px);
+    background-position: 0 0, 25px 25px;
+    background-size: 50px 50px;
+    animation: animate-bg 5s linear infinite;
+}
+
+@keyframes animate-bg {
+    0% {
+        background-position: 0 0, 25px 25px;
+    }
+    100% {
+        background-position: 50px 50px, 75px 75px;
+    }
+}
+
+/* Btn */
+.signin-btn {
+    font-size: revert;
+  padding-top: 12px;
+  background-color: #ec8129;
+  color: #fff8f0;
+  border: 2px solid #fff8f0;
+  border-radius: 25px;
+  width: 70%;
+  font-weight: 400;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  padding-bottom: 12px;
+}
+
+.signin-btn:hover {
+    background-color: #fff8f0;
+    color: #ec8129;
+    border-color: #ec8129;
+}
+
+/*Wallet not connected button */
+.wal-not-connected {
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+    background-color: #ec8129;
+    color: #fff8f0;
+    font-size: 0.9rem;
+    cursor: default;
 }
 
 .content-data-container {
-    padding: 0rem 4rem 0rem 4rem;
+    padding: 0rem 4rem;
     flex-wrap: nowrap !important;
     justify-content: space-evenly !important;
+    background-color: #fff8f0;
 }
 
 .details {
     line-height: 21px;
+    color: #ec8129;
 }
 
 .encrypted-details {
     line-height: 15px;
-}
-
-.signin-btn {
-    font-size: 1.125rem;
-    padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-}
-
-.signin-btn:hover {
-    background-color: var(--normal-btn-hover);
+    color: #ec8129;
 }
 
 .para-div p:last-child {
@@ -38,23 +74,9 @@
     fill: var(--text-primary-color) !important;
 }
 
-.content-data {
-    justify-content: center;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-}
 
 .rainbow-connect-btn {
     padding: 1rem 1rem 0rem 1rem;
-}
-
-.wal-not-connected {
-    padding: 0.6rem 1rem 0.6rem 1rem;
-    border-radius: 20px;
-    color: var(--normal-btn-hover);
-    font-size: 0.9rem;
-    cursor: default;
 }
 
 .loading-btn {
@@ -62,80 +84,186 @@
 }
 
 .spinner-visible {
-    visibility: visible;
+    display: inline;
+    margin-left: 5px;
 }
 
 .spinner-invisible {
-    visibility: hidden;
+    display: none;
+    margin-left: 0px;
+    width: 0px;
 }
 
+/* button circular animation */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.circular-dots{
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    border-top-color: #fff8f0;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: rotate 1s linear infinite;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.Popup {
+    background-color: #fff8f0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 40px;
+    box-shadow: 0px 0px 20px 0px black;
+    width: 45%;
+    margin-top: 80px;
+    height: auto;
+    max-height: 80vh;
+    max-width: 90vw;
+    overflow: auto;
+}
+
+.content-data {
+    justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.keys-content {
+    text-align: center;
+  line-height: 9px;
+  font-size: 8px;
+  width: 65%;
+  color: #ec8129;
+  margin-bottom: 0px;
+}
+
+/* wallet notifier circle */
+.wallet-notifier {
+    position: absolute;
+  top: 17%;
+  left: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet-notifier-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #ec8129;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+/* Tooltip styles */
+.wallet-tooltip {
+    visibility: hidden;
+    width: 140px;
+    background-color: #ec8129;
+    color: #fff8f0;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    font-size: 12px;
+}
+
+/* Display tooltip on hover */
+.wallet-notifier:hover .wallet-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
 
 /* =================== Mobile Responsive CSS =================== */
 
 @media only screen and (max-width: 800px) {
-
     .rainbow-connect-btn {
         padding: 0.5rem 0.5rem 0rem 0rem !important;
     }
-
     .home-image-container {
         height: 35% !important;
         width: 100% !important;
     }
-
-    .signin-data-container{
+    .signin-data-container {
         height: 65%;
         width: 100%;
     }
-
-    .details{
+    .details {
         line-height: 17px !important;
     }
-
     .wal-not-connected {
         padding: 0.4rem 1rem 0.4rem 1rem !important;
         font-size: 0.7rem !important;
     }
-
     .content-data-container {
         padding: 0rem 2rem 0rem 2rem !important;
     }
-
     .small-spinner {
         width: 1.5rem !important;
     }
-
     .signin-btn {
         font-size: 13px !important;
         padding: 0.5rem 1.2rem 0.7rem 1.2rem !important;
     }
-
+    .Popup {
+        width: 90%;
+        padding: 15px;
+    }
+    .wallet-notifier {
+        position: absolute;
+  top: 17%;
+  left: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    }
+    .wallet-tooltip {
+        width: 120px;
+        font-size: 11px;
+    }
 }
 
 @media only screen and (max-width: 300px) {
-    
-    .details{
+    .details {
         font-size: 10px !important;
         line-height: 14px !important;
     }
-
-    .encrypted-details{
+    .encrypted-details {
         font-size: 10px !important;
         line-height: 14px !important;
         margin-bottom: 0.5rem !important;
     }
-
-    .para-div{
+    .para-div {
         margin-top: 0.5rem !important;
+    }
+    .Popup {
+        width: 100%;
+        padding: 10px;
+        margin-top: 40px;
     }
 }
 
 /* =================== Container CSS =================== */
-
-.signin-container-type {
-    container-type: size;
-    container-name: signinContainer;
-}
 
 @container signinContainer (max-height: 450px) and (height > 0px) {
     .tx-content {

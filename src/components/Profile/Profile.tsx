@@ -20,6 +20,7 @@ import { UiViewContext } from '../../context/UiViewContext';
 import { ModalContext } from '../../context/ModalContext';
 import { useNavigate } from 'react-router-dom';
 import { getStacksAddressIfuserSignbyStacks } from '../StacksWallet/StacksWalletWorkaround';
+import ProfileButtons from '../ProfileButtons/ProfileButtons';
 
 export function Profile() {
     const { account, ethAddress, displayName } = useContext(AuthContext);
@@ -115,40 +116,18 @@ export function Profile() {
                     <EnsDetails propertyKey={"Name"} propertyValue={getStacksAddressIfuserSignbyStacks() ?? displayName ?? ""} />
                     <EnsDetails
                         propertyKey={"Address"}
-                        propertyValue={ethAddress as string}
+                        propertyValue={getStacksAddressIfuserSignbyStacks() as string}
                     />
 
+                    <ProfileButtons navigate={navigate} account={account} displayName={displayName} />
 
 
-
-
-
-
-
-                    <div className="ens-btn-container">
-                        <Button
-                            buttonText="View High Coiny profile"
-                            actionMethod={() =>
-                                window.open(`/profile/${displayName}`, '_blank', 'noopener noreferrer')
-                            }
-                        />
-                    </div>
-
-                    <div className="configure-btn-container">
-                        <Button
-                            buttonText="Update High Coiny profile"
-                            actionMethod={() =>
-                                navigate(`/update-profile/${account?.ensName}`)
-                            }
-                        />
-                    </div>
-
-                    <div className="configure-btn-container">
+                    {/* <div className="configure-btn-container">
                         <Button
                             buttonText="Open ENS profile"
                             actionMethod={() => openEnsProfile(account?.ensName as string)}
                         />
-                    </div>
+                    </div> */}
 
                     <div className="configure-btn-container">
                         <Button

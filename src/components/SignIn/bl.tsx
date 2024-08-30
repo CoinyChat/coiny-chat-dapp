@@ -9,17 +9,13 @@ export const getIcon = (btnState: ButtonState) => {
         case ButtonState.Loading:
             return (
                 <img
-                    className="rotating small-spinner"
-                    src={loader}
-                    alt="loader"
+                    className="circular-dots"
                 />
             );
         case ButtonState.Success:
             return (
                 <img
-                    className="rotating small-spinner"
-                    src={loader}
-                    alt="loader"
+                    className="circular-dots"
                 />
             );
         case ButtonState.Ideal:

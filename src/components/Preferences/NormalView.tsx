@@ -36,7 +36,7 @@ export function NormalView() {
             background-chat text-primary-color"
                 >
                     <div className="row m-0 h-100 w-100">
-                        <div className="col-2 m-0 p-0 preferences-aside-content border-radius-6">
+                        <div className="col-2 m-0 p-0 preferences-aside-content">
                             <div
                                 className={
                                     'pt-3 d-flex align-items-center justify-content-center'
@@ -63,7 +63,7 @@ export function NormalView() {
                                                 ' ',
                                                 optionChoosen &&
                                                     optionChoosen.name ===
-                                                        item.name
+                                                    item.name
                                                     ? 'normal-btn-hover'
                                                     : '',
                                             )}

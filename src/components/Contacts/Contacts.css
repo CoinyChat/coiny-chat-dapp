@@ -17,6 +17,7 @@
 
 .contact-details-container {
     padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    transition:all 0.3s;
 }
 
 .contact-details-container:hover .action-container {
@@ -78,14 +79,14 @@
 
 .contact-details-container:hover {
     border-radius: 0px;
-    background-color: var(--normal-btn);
+    background-color: #fff8f0;
 }
 
 .contact-details-container-active {
-    border-top: 2px solid var(--selected-contact-border-color) !important;
-    border-left: 2px solid var(--selected-contact-border-color) !important;
-    border-bottom: 2px solid var(--selected-contact-border-color) !important;
-    background: var(--background-active-contact) !important;
+    border-top: 2px solid #ec8129 !important;
+    border-left: 2px solid #ec8129 !important;
+    border-bottom: 2px solid #ec8129 !important;
+    background: #fff8f0 !important;
     top: 0;
     bottom: 4rem !important;
     position: sticky;
