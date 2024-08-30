@@ -17,6 +17,8 @@ import humanIcon from '../../assets/images/human.svg';
 import { DM3ConfigurationContext } from '../../context/DM3ConfigurationContext';
 import { UiViewContext } from '../../context/UiViewContext';
 import { ModalContext } from '../../context/ModalContext';
+import { getStacksAddressIfuserSignbyStacks, isHighcoinyStacksWalletCreated } from '../../components/StacksWallet/StacksWalletWorkaround';
+import { isUserRequestSignByHighcoinyStacksWallet } from '../../components/StacksWallet/StacksWalletWorkaround';
 
 export default function LeftView() {
     const { account, displayName } = useContext(AuthContext);
@@ -92,8 +94,10 @@ export default function LeftView() {
                             onClick={() => updateView()}
                             className="font-weight-500 pointer-cursor text-secondary-color ps-1 pe-1"
                         >
-                            {displayName}
+                            {getStacksAddressIfuserSignbyStacks() ?? displayName}
                         </span>
+
+
                         <img
                             src={profilePic ? profilePic : humanIcon}
                             alt="menu"

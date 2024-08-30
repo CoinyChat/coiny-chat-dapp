@@ -33,9 +33,10 @@ import { TLDContextProvider } from '../../context/TLDContext';
 import { UiViewContextProvider } from '../../context/UiViewContext';
 import { Dm3Props } from '../../interfaces/config';
 import './Home.css';
-import { createBrowserRouter } from 'react-router-dom';
-import HiCoinyProfile from '../../components/HiCoinyProfile/HiCoinyProfile';
-import { SavedProfiles } from '../../components/SavedProfiles/SavedProfiles';
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import HiCoinyProfile from "../../components/HiCoinyProfile/HiCoinyProfile";
+import { SavedProfiles } from "../../components/SavedProfiles/SavedProfiles";
+import UpdateHicoinyProifle from '../../components/updateHicoinyProfile/UpdateHiCoinyProfile';
 
 export function Home(props: Dm3Props) {
     /**
@@ -95,53 +96,67 @@ export function Home(props: Dm3Props) {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <DM3
-                config={
-                    props.config
-                }
-            />
+            element:
+
+                <WagmiConfig config={wagmiConfig}>
+                    <RainbowKitProvider chains={chains} theme={darkTheme()}>
+                        <DM3ConfigurationContextProvider>
+                            <UiViewContextProvider>
+                                <ModalContextProvider>
+                                    <MainnetProviderContextProvider
+                                        dm3Configuration={props.config}
+                                    >
+                                        <TLDContextProvider>
+                                            <AuthContextProvider>
+                                                <DeliveryServiceContextProvider>
+                                                    <BackendContextProvider>
+                                                        <StorageContextProvider>
+                                                            <Outlet />
+                                                        </StorageContextProvider>
+                                                    </BackendContextProvider>
+                                                </DeliveryServiceContextProvider>
+                                            </AuthContextProvider>
+                                        </TLDContextProvider>
+                                    </MainnetProviderContextProvider>
+                                </ModalContextProvider>
+                            </UiViewContextProvider>
+                        </DM3ConfigurationContextProvider>
+                    </RainbowKitProvider>
+                </WagmiConfig>,
+            children: [
+                {
+                    path: '/',
+                    element: <DM3
+                        config={
+                            props.config
+                        }
+                    />
+                },
+                {
+                    path: 'update-profile/:ensName',
+                    element: <UpdateHicoinyProifle />
+                },
+                {
+                    path: "profiles",
+                    element: <SavedProfiles />,
+                },
+            ]
+
+
         },
+
         {
             path: "profile/:ensName",
             element: <HiCoinyProfile />,
         },
-        {
-            path: "profiles",
-            element: <SavedProfiles />,
-        },
+
     ]);
 
     return (
         <div className="h-100 position-relative">
-            <WagmiConfig config={wagmiConfig}>
-                <RainbowKitProvider chains={chains} theme={darkTheme()}>
-                    <DM3ConfigurationContextProvider>
-                        <UiViewContextProvider>
-                            <ModalContextProvider>
-                                <MainnetProviderContextProvider
-                                    dm3Configuration={props.config}
-                                >
-                                    <TLDContextProvider>
-                                        <AuthContextProvider>
-                                            <DeliveryServiceContextProvider>
-                                                <BackendContextProvider>
-                                                    <StorageContextProvider>
-                                                        <DM3
-                                                            config={
-                                                                props.config
-                                                            }
-                                                        />
-                                                    </StorageContextProvider>
-                                                </BackendContextProvider>
-                                            </DeliveryServiceContextProvider>
-                                        </AuthContextProvider>
-                                    </TLDContextProvider>
-                                </MainnetProviderContextProvider>
-                            </ModalContextProvider>
-                        </UiViewContextProvider>
-                    </DM3ConfigurationContextProvider>
-                </RainbowKitProvider>
-            </WagmiConfig>
+
+            <RouterProvider router={router} />
+
         </div>
     );
 }

@@ -34,11 +34,12 @@ export const ConfigureEnsProfile = (props: IChain) => {
     const { dm3Configuration } = useContext(DM3ConfigurationContext);
 
     const [ethereumName, setEthereumName] = useState<string>('');
-
-    const provider = new ethers.providers.Web3Provider(
-        window.ethereum as ethers.providers.ExternalProvider,
-    );
-
+    let provider: ethers.providers.Web3Provider | ethers.providers.StaticJsonRpcProvider;
+    try {
+        provider = new ethers.providers.Web3Provider(
+            window.ethereum as ethers.providers.ExternalProvider,
+        );
+    } catch (e) { }
     // changes network on GNO naming service change
     const changeNetwork = async (ethName: string) => {
         const chainId = fetchChainIdFromServiceName(
@@ -90,10 +91,10 @@ export const ConfigureEnsProfile = (props: IChain) => {
     useEffect(() => {
         if (
             connectedChainId ===
-                fetchChainIdFromServiceName(
-                    namingServiceSelected,
-                    dm3Configuration.chainId,
-                ) &&
+            fetchChainIdFromServiceName(
+                namingServiceSelected,
+                dm3Configuration.chainId,
+            ) &&
             ethereumName.length
         ) {
             registerAndPublish(ethereumName);

@@ -147,8 +147,8 @@ export function ContactInfo() {
                         <Button
                             buttonText="Open Hi-Coiny profile"
                             actionMethod={() =>
-                                navigate(
-                                    `/profile/${selectedContact?.contactDetails.account.ensName}`
+                                window.open(
+                                    `/profile/${selectedContact?.name}`, '_blank', 'noopener,noreferrer'
                                 )
                             }
                         />

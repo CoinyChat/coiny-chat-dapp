@@ -45,12 +45,12 @@ const TokenBalance = ({ address }: Props) => {
         setIsLoading(false);
         return;
       }
-      const updatedTokens = tokens.map((data) => {
+      const updatedTokens = tokens.map((data: any) => {
         return {
-          name: data.name,
-          logo: data.logo,
-          bitcoin: data.balance,
-          usdt: data.balance,
+          name: data.name as string,
+          logo: data.logo as string,
+          bitcoin: data.balance as string,
+          usdt: data.balance as string,
         };
       });
 
@@ -64,18 +64,18 @@ const TokenBalance = ({ address }: Props) => {
   const generateRows = () => {
     return tokens.map((token) => (
       <li
-        key={token.name}
+        key={token.name as string}
         className="list-group-item d-flex justify-content-between align-items-center"
         style={{ backgroundColor: "#28204A", borderColor: "#544393" }}
       >
         <img
-          src={token.logo}
-          alt={token.name}
+          src={token.logo as string}
+          alt={token.name as string}
           className="img-fluid rounded-circle"
           style={{ width: "30px", height: "30px" }}
         />
         <span className="badge bg-primary rounded-pill">
-          Balance: {token.bitcoin}
+          Balance: {token.bitcoin as string}
         </span>
         {/* <span className="badge bg-secondary rounded-pill">
           USDT Balance: {token.usdt}

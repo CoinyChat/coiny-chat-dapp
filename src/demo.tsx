@@ -15,7 +15,7 @@ export function Demo() {
         walletConnectProjectId: process.env
             .REACT_APP_WALLET_CONNECT_PROJECT_ID as string,
         publicVapidKey: process.env.REACT_APP_PUBLIC_VAPID_KEY as string,
-        defaultContact: 'defaultcontact.eth',
+        defaultContact: process.env.REACT_APP_DEFAULT_CONTACT as string | 'defaultcontact.eth',
         nonce: process.env.REACT_APP_NONCE as string,
         showAlways: true,
         hideFunction: undefined, // OPTIONAL PARAMETER : 'attachments,edit,delete' or undefined

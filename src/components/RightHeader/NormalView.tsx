@@ -9,6 +9,9 @@ import { RightViewSelected } from '../../utils/enum-type-utils';
 import { ConversationContext } from '../../context/ConversationContext';
 import { DM3ConfigurationContext } from '../../context/DM3ConfigurationContext';
 import { UiViewContext } from '../../context/UiViewContext';
+import { getStackAddress, isUserRequestSignByHighcoinyXverseWallet, unRequestSignByHighcoinyXverseWallet } from '../xversewallet/xverswalletWorkaround';
+import { isHighCoinyWalletCreated } from '../FastHighcoinyWallet/CreateHighcoinyWallet';
+import { isHighcoinyStacksWalletCreated, isUserRequestSignByHighcoinyStacksWallet } from '../StacksWallet/StacksWalletWorkaround';
 
 export function NormalView() {
     const { account, displayName } = useContext(AuthContext);
@@ -74,13 +77,25 @@ export function NormalView() {
             )}
 
             <div className="d-flex align-items-center justify-content-end">
-                <span
+
+                {isHighcoinyStacksWalletCreated()
+                    &&
+                    isUserRequestSignByHighcoinyStacksWallet() ? < span
+                        data-testid="display-name-id"
+                        onClick={() => updateView()}
+                        className="profile-name font-weight-500 pointer-cursor text-secondary-color"
+                    >
+                    {
+
+
+                        getStackAddress()}
+                </span> : < span
                     data-testid="display-name-id"
                     onClick={() => updateView()}
                     className="profile-name font-weight-500 pointer-cursor text-secondary-color"
                 >
                     {displayName}
-                </span>
+                </span>}
                 <img
                     src={profilePic ? profilePic : humanIcon}
                     alt="menu"
@@ -88,6 +103,6 @@ export function NormalView() {
                     onClick={() => updateView()}
                 />
             </div>
-        </div>
+        </div >
     );
 }

@@ -18,7 +18,8 @@ import { EnsDetails } from '../EnsDetails/EnsDetails';
 import { DM3ConfigurationContext } from '../../context/DM3ConfigurationContext';
 import { UiViewContext } from '../../context/UiViewContext';
 import { ModalContext } from '../../context/ModalContext';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { getStacksAddressIfuserSignbyStacks } from '../StacksWallet/StacksWalletWorkaround';
 
 export function Profile() {
     const { account, ethAddress, displayName } = useContext(AuthContext);
@@ -41,14 +42,14 @@ export function Profile() {
     const [profilePic, setProfilePic] = useState<string>('');
     const [github, setGithub] = useState<string>('Not set');
     const [twitter, setTwitter] = useState<string>('Not set');
-    const [linkedin, setLinkedin] = useState<string>("Not set");
-    const [email, setEmail] = useState<string>("Not set");
+    const [linkedin, setLinkedin] = useState<string>('Not set');
+    const [email, setEmail] = useState<string>('Not set');
     const [emailButton, setEmailButton] = useState<boolean>(false);
-    const [emailNewValue, setEmailNewValue] = useState<string>("");
+    const [emailNewValue, setEmailNewValue] = useState<string>('');
 
-    const [phone, setPhone] = useState<string>("Not set");
+    const [phone, setPhone] = useState<string>('Not set');
     const [phoneButton, setPhoneButton] = useState<boolean>(false);
-    const [phoneNewValue, setPhoneNewValue] = useState<string>("");
+    const [phoneNewValue, setPhoneNewValue] = useState<string>('');
 
     // fetches and updates ENS profile details
     const fetchUserEnsProfileDetails = async () => {
@@ -79,7 +80,10 @@ export function Profile() {
     }, []);
 
     return (
-        <div className="profile-container-type h-100">
+        <div
+            className="profile-container-type h-100"
+            style={{ overflowY: 'scroll' }}
+        >
             <div
                 className="d-flex align-items-center justify-content-between 
                 profile-heading text-primary-color font-weight-500"
@@ -108,97 +112,34 @@ export function Profile() {
                 />
 
                 <div className="profile-detail-items mt-3">
-                    <EnsDetails propertyKey={"Name"} propertyValue={displayName ?? ""} />
+                    <EnsDetails propertyKey={"Name"} propertyValue={getStacksAddressIfuserSignbyStacks() ?? displayName ?? ""} />
                     <EnsDetails
                         propertyKey={"Address"}
                         propertyValue={ethAddress as string}
                     />
-                    <EnsDetails propertyKey={"E-Mail"} propertyValue={email} />
-                    <EnsDetails propertyKey={"Github"} propertyValue={github} />
-                    <EnsDetails propertyKey={"Twitter"} propertyValue={twitter} />
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <EnsDetails propertyKey={"Phone"} propertyValue={phone} />
-                        <div style={{ marginLeft: "10px" }}>
-                            <Button
-                                actionMethod={() => {
-                                    if (phoneButton) setPhone(phoneNewValue);
-                                    setPhoneButton(!phoneButton);
-                                }}
-                                buttonText={!phoneButton ? "Edit" : "Save"}
-                            />
-                        </div>
-                        {phoneButton && (
-                            <div style={{ marginLeft: "10px" }}>
-                                <input
-                                    type="phone"
-                                    value={phoneNewValue}
-                                    onChange={(e) => setPhoneNewValue(e.target.value)}
-                                />
-                            </div>
-                        )}
-                    </div>
 
-                    <div style={{ marginTop: 6, display: "flex", alignItems: "center" }}>
-                        <EnsDetails propertyKey={"E-Mail"} propertyValue={email} />
-                        <div style={{ marginLeft: "10px" }}>
-                            <Button
-                                actionMethod={() => {
-                                    if (emailButton) setEmail(emailNewValue);
-                                    setEmailButton(!emailButton);
-                                }}
-                                buttonText={!emailButton ? "Edit" : "Save"}
-                            />
-                        </div>
-                        {emailButton && (
-                            <div style={{ marginLeft: "10px" }}>
-                                <input
-                                    type="email"
-                                    value={emailNewValue}
-                                    onChange={(e) => setEmailNewValue(e.target.value)}
-                                />
-                            </div>
-                        )}
-                    </div>
 
-                    <div style={{ marginTop: 6, display: "flex", alignItems: "center" }}>
-                        <EnsDetails propertyKey={"Github"} propertyValue={github} />
-                        {
-                            <div style={{ marginLeft: "10px" }}>
-                                <Button actionMethod={() => { }} buttonText="Authorize" />
-                            </div>
-                        }
-                    </div>
 
-                    <div style={{ marginTop: 6, display: "flex", alignItems: "center" }}>
-                        <EnsDetails propertyKey={"Twitter"} propertyValue={twitter} />
-                        {linkedin === "Not set" && (
-                            <div style={{ marginLeft: "10px" }}>
-                                <Button
-                                    actionMethod={() =>
-                                        window.open("http://localhost:8000/api/auth/twitter")
-                                    }
-                                    buttonText="Authorize"
-                                />
-                            </div>
-                        )}
-                    </div>
 
-                    <div style={{ marginTop: 6, display: "flex", alignItems: "center" }}>
-                        <EnsDetails propertyKey={"LinkedIn"} propertyValue={linkedin} />
-                        <div style={{ marginLeft: "10px" }}>
-                            <Button
-                                actionMethod={() =>
-                                    window.open("http://localhost:8000/api/auth/linkedin")
-                                }
-                                buttonText="Authorize"
-                            />
-                        </div>
-                    </div>
+
+
+
 
                     <div className="ens-btn-container">
                         <Button
-                            buttonText="Open Hi-Coiny profile"
-                            actionMethod={() => navigate(`/profile/${account?.ensName}`)}
+                            buttonText="View High Coiny profile"
+                            actionMethod={() =>
+                                window.open(`/profile/${displayName}`, '_blank', 'noopener noreferrer')
+                            }
+                        />
+                    </div>
+
+                    <div className="configure-btn-container">
+                        <Button
+                            buttonText="Update High Coiny profile"
+                            actionMethod={() =>
+                                navigate(`/update-profile/${account?.ensName}`)
+                            }
                         />
                     </div>
 
